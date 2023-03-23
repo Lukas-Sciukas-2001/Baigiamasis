@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transportas', function (Blueprint $table) {
-            $table->id();
-            $table->string('modelis');
-            $table->string('identif');
-            $table->integer('vietos');
-            $table->softDeletes();
+        Schema::table('transportas', function (Blueprint $table) {
+            $table->timestamps();
         });
         //
     }
@@ -30,7 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transportas');
         //
     }
 };

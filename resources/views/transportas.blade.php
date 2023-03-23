@@ -2,6 +2,7 @@
     <x-slot name="header">
     </x-slot>
     <div>
+        <a class="border-2 p-0.5 rounded-lg cursor:auto" href="{{route('transportas.create')}}">Pridėti transporto priemonę</a>
         @foreach($transportas as $automobilis)
         <div class="overflow-hidden m-5 bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
@@ -20,6 +21,12 @@
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-900">Technikinis:</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$automobilis->technikinis}}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <form method="GET" action="{{route('transportas.edit',$automobilis->id)}}">
+                        @csrf
+                        <input type="submit" value = "Redaguoti" class="border-2 p-0.5 rounded-lg cursor:auto">
+                    </form>
                 </div>
                 </dl>
             </div>

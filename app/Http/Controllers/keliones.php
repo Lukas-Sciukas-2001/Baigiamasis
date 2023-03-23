@@ -13,10 +13,12 @@ class keliones extends Controller
     public function index()
     {
         
-        $keliones = DB::table('keliones')->join('kompanijos','kompanijos.id','=','keliones.kompanija_id')->select(
-        
-        
-        'keliones.pradzia', 'keliones.pabaiga', 'keliones.vietos', 'keliones.kaina', 'keliones.data', 'kompanijos.pavadinimas')->get();
-        return view('keliones.keliones',compact('keliones')); 
+        $keliones = DB::table('keliones')->select(
+        'keliones.pradzia',
+        'keliones.pabaiga',
+        'keliones.vietos',
+        'keliones.kaina',
+        'keliones.data')->get();
+        return view('kelione'); 
     }
 }

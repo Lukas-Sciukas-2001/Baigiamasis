@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('pradzia_salis');
             $table->text('aprasymas');
             $table->string('vairuotojo_id');
-            $table->string('tikslas_miestas');
-            $table->string('tikslas_salis');
+            $table->string('tikslas_id');
             $table->integer('transporto_id');
             $table->integer('kaina_suaug');
             $table->integer('kaina_vaikam');
             $table->date('data');
             $table->date('gryzimo_data');
+            $table->softdeletes();
         });
     }
 

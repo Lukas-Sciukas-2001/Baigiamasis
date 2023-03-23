@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('patvirt_busena');
             $table->string('uzmokest_tipas');
             $table->timestamps();
+            $table->softdeletes();
         });
         //
     }

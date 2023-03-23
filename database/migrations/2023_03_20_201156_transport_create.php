@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('modelis');
             $table->string('identif');
             $table->integer('vietos');
+            $table->softdeletes();
         });
         //
     }

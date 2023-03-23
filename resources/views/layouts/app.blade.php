@@ -12,6 +12,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

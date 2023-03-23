@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\keliones;
+use App\Http\Controllers\vairuotojai;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +17,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('keliones.index');
 });
 
 Route::resource('/keliones', keliones::class);
+Route::resource('/vairuotojai', vairuotojai::class);
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('keliones.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

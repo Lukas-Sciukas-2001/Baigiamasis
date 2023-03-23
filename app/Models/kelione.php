@@ -23,5 +23,4 @@ class kelione extends Model
         'gryzimas',
     ];
     use HasFactory;
-    use HasFactory;
 }

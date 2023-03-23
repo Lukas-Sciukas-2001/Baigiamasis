@@ -13,28 +13,39 @@ class keliones extends Controller
 {
     public function index()
     {
-        
-        $keliones= DB::table('keliones')->get();
+        $date = date('Y-m-d h:i:s', time());
+        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','desc')->get();
         return view('kelione',compact('keliones')); 
     }
     public function create()
     {
-        if(Auth::user()->tipas > 2)
-        {
-            $vairuotojai = DB::table('users')->where('tipas','=','2')->get();
-            $transportas = DB::table('transportas')->get();
-            return view('kelionecreate',compact('vairuotojai','transportas'));
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                $vairuotojai = DB::table('users')->where('tipas','=','2')->get();
+                $transportas = DB::table('transportas')->get();
+                return view('kelionecreate',compact('vairuotojai','transportas'));
+            }
         }
-        $keliones= DB::table('keliones')->get();
+        $date = date('m/d/Y h:i:s a', time());
+        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','desc')->get();
         return view('kelione',compact('keliones')); 
     }
     public function store(Request $request)
     {
-        if(Auth::user()->tipas > 2)
-        {
-            kelione::create($request->all());
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                kelione::create($request->all());
+            }
         }
-        $keliones= DB::table('keliones')->get();
+        $date = date('m/d/Y h:i:s a', time());
+        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','desc')->get();
         return view('kelione',compact('keliones')); 
+    }
+    public function show($id)
+    {
+        $kelione= DB::table('keliones')->where('id','=',$id)->first();
+        return view('kelioneshow',compact('kelione')); 
     }
 }

@@ -11,26 +11,41 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @if(Auth::check())
+                    @if(Auth::user()->tipas > 2)
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('keliones.index')">
+                                {{ __('Keliones') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('keliones.create')">
+                                {{ __('Suplanuoti kelionę') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('vairuotojai.index')">
+                                {{ __('Vairuotojai') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
+                @endif
+                @if(!Auth::check())
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('login')">
+                        {{ __('Login') }}
                     </x-nav-link>
                 </div>
-                @if(Auth::user()->tipas > 2)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('keliones.index')">
-                        {{ __('Keliones') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('keliones.create')">
-                        {{ __('Suplanuoti kelionę') }}
+                    <x-nav-link :href="route('register')">
+                        {{ __('Register') }}
                     </x-nav-link>
                 </div>
                 @endif
             </div>
 
             <!-- Settings Dropdown -->
+            @if(Auth::check())
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -63,6 +78,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endif
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -83,7 +99,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
-
+        @if(Auth::check())
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -108,5 +124,6 @@
                 </form>
             </div>
         </div>
+        @endif
     </div>
 </nav>

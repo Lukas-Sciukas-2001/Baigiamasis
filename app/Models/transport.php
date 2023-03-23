@@ -16,5 +16,6 @@ class transport extends Model
         'technikinis',
     ];
     use HasFactory;
+    use SoftDeletes;
     protected $dates = ['deleted_at'];
 }

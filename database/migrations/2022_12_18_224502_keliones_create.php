@@ -15,16 +15,19 @@ return new class extends Migration
     {
         Schema::create('keliones', function (Blueprint $table) {
             $table->id();
-            $table->string('pradzia_miestas');
             $table->string('pradzia_salis');
+            $table->string('pradzia_miestas');
+            $table->string('stotis');
             $table->text('aprasymas');
             $table->string('vairuotojo_id');
-            $table->string('tikslas_id');
+            $table->string('tikslas_salis');
+            $table->string('tikslas_miestas');
             $table->integer('transporto_id');
             $table->integer('kaina_suaug');
             $table->integer('kaina_vaikam');
-            $table->date('data');
-            $table->date('gryzimo_data');
+            $table->datetime('isvykimas');
+            $table->datetime('gryzimas');
+            $table->timestamps();
             $table->softdeletes();
         });
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\keliones;
 use App\Http\Controllers\vairuotojai;
+use App\Http\Controllers\transportas;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,7 @@ Route::get('/', function () {
 
 Route::resource('/keliones', keliones::class);
 Route::resource('/vairuotojai', vairuotojai::class);
+Route::resource('/transportas', transportas::class);
 
 Route::get('/dashboard', function () {
     return redirect()->route('keliones.index');

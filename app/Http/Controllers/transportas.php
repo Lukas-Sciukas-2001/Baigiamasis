@@ -59,5 +59,47 @@ class transportas extends Controller
         }
         return redirect()->route('transportas.index');
     }
+    public function update(Request $request,$id)
+    {
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                $request->validate([
+                    'modelis' => 'required',
+                    'identif' => 'required',
+                    'vietos' => 'required',
+                    'technikinis' => 'required'
+                ]);
+                $transportas = transport::find($id);
+                $transportas->modelis=$request->modelis;
+                $transportas->identif=$request->identif;
+                $transportas->vietos=$request->vietos;
+                $transportas->technikinis=$request->technikinis;
+                $transportas->save();
+            }
+        }
+        return redirect()->route('transportas.index');
+    }
+    public function show(Request $request,$id)
+    {
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                $request->validate([
+                    'modelis' => 'required',
+                    'identif' => 'required',
+                    'vietos' => 'required',
+                    'technikinis' => 'required'
+                ]);
+                $transportas = transport::find($id);
+                $transportas->modelis=$request->modelis;
+                $transportas->identif=$request->identif;
+                $transportas->vietos=$request->vietos;
+                $transportas->technikinis=$request->technikinis;
+                $transportas->save();
+            }
+        }
+        return redirect()->route('transportas.index');
+    }
     //
 }

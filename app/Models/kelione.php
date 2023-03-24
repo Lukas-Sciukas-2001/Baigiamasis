@@ -12,6 +12,7 @@ class kelione extends Model
         'pradzia_salis',
         'pradzia_miestas',
         'stotis',
+        'pavadinimas',
         'aprasymas',
         'vairuotojo_id',
         'tikslas_salis',

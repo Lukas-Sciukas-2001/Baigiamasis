@@ -23,6 +23,16 @@
                         <input type="submit" value = "Daugiau informacijos" class="border-2 p-0.5 rounded-lg cursor:auto">
                     </form>
                 </div>
+                @if(Auth::check())
+                @if(Auth::user()->tipas > 2)
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <form method="GET" action="{{route('keliones.edit',$kelione->id)}}">>
+                        @csrf
+                        <button type="submit">Redaguoti</button>
+                    </form>
+                </div>
+                @endif
+            @endif
                 </dl>
             </div>
         </div>

@@ -13,8 +13,9 @@ class keliones extends Controller
 {
     public function index()
     {
+        
         $date = date('Y-m-d h:i:s', time());
-        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','desc')->get();
+        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','asc')->get();
         return view('kelione',compact('keliones')); 
     }
     public function create()
@@ -27,9 +28,7 @@ class keliones extends Controller
                 return view('kelionecreate',compact('vairuotojai','transportas'));
             }
         }
-        $date = date('m/d/Y h:i:s a', time());
-        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','desc')->get();
-        return view('kelione',compact('keliones')); 
+        return redirect()->route('keliones.index'); 
     }
     public function store(Request $request)
     {
@@ -39,9 +38,7 @@ class keliones extends Controller
                 kelione::create($request->all());
             }
         }
-        $date = date('m/d/Y h:i:s a', time());
-        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','desc')->get();
-        return view('kelione',compact('keliones')); 
+        return redirect()->route('keliones.index');
     }
     public function show($id)
     {

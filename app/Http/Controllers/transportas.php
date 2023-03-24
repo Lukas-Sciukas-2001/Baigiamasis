@@ -15,8 +15,14 @@ class transportas extends Controller
 {
     public function index()
     {
-        $transportas= DB::table('transportas')->get();
-        return view('transportas',compact('transportas')); 
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                $transportas= DB::table('transportas')->get();
+                return view('transportas',compact('transportas')); 
+            }
+        }
+        return redirect()->route('keliones.index');
     }
     public function create()
     {
@@ -26,7 +32,7 @@ class transportas extends Controller
                 return view('transportascreate');
             }
         }
-        return redirect()->route('transportas.index');
+        return redirect()->route('keliones.index');
     }
     public function store(Request $request)
     {
@@ -36,7 +42,7 @@ class transportas extends Controller
                 transport::create($request->all());
             }
         } 
-        return redirect()->route('transportas.index');
+        return redirect()->route('keliones.index');
     }
     public function edit($id)
     {
@@ -47,7 +53,7 @@ class transportas extends Controller
                 return view('transportasedit',compact('transportas'));
             }
         }
-        return redirect()->route('transportas.index');
+        return redirect()->route('keliones.index');
     }
     public function destroy($id)
     {
@@ -57,7 +63,7 @@ class transportas extends Controller
                 $deleted=DB::table('transportas')->where('id','=',$id)->delete();
             }
         }
-        return redirect()->route('transportas.index');
+        return redirect()->route('keliones.index');
     }
     public function update(Request $request,$id)
     {
@@ -78,7 +84,7 @@ class transportas extends Controller
                 $transportas->save();
             }
         }
-        return redirect()->route('transportas.index');
+        return redirect()->route('keliones.index');
     }
     public function show(Request $request,$id)
     {
@@ -99,7 +105,7 @@ class transportas extends Controller
                 $transportas->save();
             }
         }
-        return redirect()->route('transportas.index');
+        return redirect()->route('keliones.index');
     }
     //
 }

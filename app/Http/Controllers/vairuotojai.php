@@ -13,8 +13,14 @@ class vairuotojai extends Controller
 {
     public function index()
     {
-        $vairuotojai= DB::table('users')->where('tipas','=','2')->get();
-        return view('vairuotojai',compact('vairuotojai')); 
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                $vairuotojai= DB::table('users')->where('tipas','=','2')->get();
+                return view('vairuotojai',compact('vairuotojai')); 
+            }
+        }
+        return redirect()->route('keliones.index');
     }
     //
 }

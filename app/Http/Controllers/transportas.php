@@ -18,7 +18,7 @@ class transportas extends Controller
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
-                $transportas= DB::table('transportas')->get();
+                $transportas= DB::table('transportas')->where('deleted_at',NULL)->get();
                 return view('transportas',compact('transportas')); 
             }
         }
@@ -40,6 +40,7 @@ class transportas extends Controller
             if(Auth::user()->tipas > 2)
             {
                 transport::create($request->all());
+                return redirect()->route('transportas.index');
             }
         } 
         return redirect()->route('keliones.index');
@@ -51,6 +52,7 @@ class transportas extends Controller
             {
                 $transportas= DB::table('transportas')->where('id','=',$id)->first();
                 return view('transportasedit',compact('transportas'));
+                return redirect()->route('transportas.index');
             }
         }
         return redirect()->route('keliones.index');
@@ -60,7 +62,9 @@ class transportas extends Controller
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
-                $deleted=DB::table('transportas')->where('id','=',$id)->delete();
+                $delete=transport::where('id',$id)->firstOrFail();
+                $delete->delete();
+                return redirect()->route('transportas.index');
             }
         }
         return redirect()->route('keliones.index');
@@ -82,6 +86,7 @@ class transportas extends Controller
                 $transportas->vietos=$request->vietos;
                 $transportas->technikinis=$request->technikinis;
                 $transportas->save();
+                return redirect()->route('transportas.index');
             }
         }
         return redirect()->route('keliones.index');
@@ -103,6 +108,7 @@ class transportas extends Controller
                 $transportas->vietos=$request->vietos;
                 $transportas->technikinis=$request->technikinis;
                 $transportas->save();
+                return redirect()->route('transportas.index');
             }
         }
         return redirect()->route('keliones.index');

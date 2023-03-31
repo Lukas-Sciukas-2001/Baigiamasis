@@ -34,6 +34,13 @@
                             </x-nav-link>
                         </div>
                     @endif
+                    @if(Auth::user()->tipas == 2)
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('vairuotkeliones.index')">
+                                {{ __('Priskirtos kelionės') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
                 @endif
                 @if(!Auth::check())
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

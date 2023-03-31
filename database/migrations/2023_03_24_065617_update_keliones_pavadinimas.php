@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('keliones', function (Blueprint $table) {
             $table->text('pavadinimas')->nullable();
+            $table->text('visibility')->nullable();
         });
         //
     }
@@ -28,6 +29,7 @@ return new class extends Migration
     {
         Schema::table('keliones', function (Blueprint $table) {
             $table->dropColumn('pavadinimas');
+            $table->dropColumn('visibility');
         });
         //
     }

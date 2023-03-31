@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('uzsakymai', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->integer('keliones_id');
             $table->string('patvirt_busena');
+            $table->string('vardas');
+            $table->string('pavarde');
             $table->string('uzmokest_tipas');
+            $table->integer('kaina');
             $table->timestamps();
             $table->softdeletes();
         });

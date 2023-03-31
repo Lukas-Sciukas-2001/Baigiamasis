@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\keliones;
 use App\Http\Controllers\vairuotojai;
 use App\Http\Controllers\transportas;
+use App\Http\Controllers\uzsakymai;
+use App\Http\Controllers\filtruotoskeliones;
+use App\Http\Controllers\vairuotkeliones;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,12 +21,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if(Auth::check())
+    {
+        if(Auth::user()->tipas == 2)
+        {
+            return redirect()->route('vairuotkeliones.index');
+        }
+    }
     return redirect()->route('keliones.index');
 });
 
 Route::resource('/keliones', keliones::class);
 Route::resource('/vairuotojai', vairuotojai::class);
 Route::resource('/transportas', transportas::class);
+Route::resource('/uzsakymai', uzsakymai::class);
+Route::resource('/filtras', filtruotoskeliones::class);
+Route::resource('/vairuotkeliones', vairuotkeliones::class);
 
 Route::get('/dashboard', function () {
     return redirect()->route('keliones.index');

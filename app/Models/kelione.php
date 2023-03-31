@@ -22,6 +22,7 @@ class kelione extends Model
         'kaina_vaikam',
         'isvykimas',
         'gryzimas',
+        'visibility',
     ];
     use HasFactory;
 }

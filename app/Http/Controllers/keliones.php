@@ -15,7 +15,14 @@ class keliones extends Controller
     {
         
         $date = date('Y-m-d h:i:s', time());
-        $keliones= DB::table('keliones')->where('isvykimas','>',$date)->orderBy('isvykimas','asc')->get();
+        $keliones= DB::table('keliones')->where('visibility','=','matomas')->where('isvykimas','>',$date)->orderBy('isvykimas','asc')->paginate(6);
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                $nematomos = DB::table('keliones')->where('visibility','=','nematomas')->orderBy('isvykimas','asc')->get();
+                return view('kelione',compact('keliones','nematomos')); 
+            }
+        }
         return view('kelione',compact('keliones')); 
     }
     public function create()
@@ -62,6 +69,7 @@ class keliones extends Controller
                     'isvykimas' => $request->isvykimas,
                     'gryzimas' => $request->gryzimas,
                     'pavadinimas' => $request->pavadinimas,
+                    'visibility' => $request->visibility,
                 ]);
             }
         }
@@ -80,6 +88,7 @@ class keliones extends Controller
     public function show($id)
     {
         $kelione= DB::table('keliones')->where('id','=',$id)->first();
-        return view('kelioneshow',compact('kelione')); 
+        $keleiviai = DB::table('uzsakymai')->where('keliones_id','=',$kelione->id)->get();
+        return view('kelioneshow',compact('kelione','keleiviai')); 
     }
 }

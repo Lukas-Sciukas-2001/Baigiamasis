@@ -83,6 +83,14 @@
                 <label for="gryzimas" :value="__('Parvykimo laikas')" >
                 <input id="gryzimas" class="block mt-1 w-full" type="datetime-local" name="gryzimas" value="{{$kelione->gryzimas}}" required />
             </div>
+            <!-- matomumas -->
+            Matomumas
+            <div class="mt-4">
+                <select id="visibility" class="block mt-1 w-full" type="text" name="visibility" :value="old('visibility')" required>
+                    <option value='matomas'>Viešas</option>
+                    <option value='nematomas'>Nematomas</option>
+                </select>
+            </div>
             <div>
                 <button type="submit">Išsaugoti</button>
             </div>

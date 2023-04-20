@@ -12,8 +12,12 @@
                         <div class="border-t border-gray-200">
                             <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-sm font-medium text-gray-900">Kaina suaugusiems: {{$nematomas->kaina_suaug}}</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Kaina vaikams: {{$nematomas->kaina_vaikam}}</dd>
+                                @if($nematomas->kaina_suaug == $nematomas->kaina_vaikam)
+                                    <dt class="text-sm font-medium text-gray-900">Kaina: {{$nematomas->kaina_suaug}}</dt>
+                                @else
+                                    <dt class="text-sm font-medium text-gray-900">Kaina suaugusiems: {{$nematomas->kaina_suaug}}</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Kaina vaikams: {{$nematomas->kaina_vaikam}}</dd>
+                                @endif
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-900">Išvyksta: {{$nematomas->isvykimas}} iš {{$nematomas->stotis}}, {{$nematomas->pradzia_miestas}}</dt>
@@ -29,7 +33,7 @@
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <form method="GET" action="{{route('keliones.edit',$nematomas->id)}}">
                                      @csrf
-                                    <button type="submit">Redaguoti</button>
+                                    <button class="btn-info" type="submit">Redaguoti</button>
                                 </form>
                             </div>
                             </dl>
@@ -50,7 +54,7 @@
             <div>
                 <input name="norimsalis" type="text" placeholder="Norima šalis">
                 <input name="norimmiest" type="text" placeholder="Norimas miestas">
-                <input type="submit" value ="Filtruoti">
+                <input class="btn-success rounded-lg p-0.5" type="submit" value ="Filtruoti">
             </div>
         </form>
         </div>
@@ -62,8 +66,12 @@
             <div class="border-t border-gray-200">
                 <dl>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-900">Kaina suaugusiems: {{$kelione->kaina_suaug}}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Kaina vaikams: {{$kelione->kaina_vaikam}}</dd>
+                @if($kelione->kaina_suaug == $kelione->kaina_vaikam)
+                    <dt class="text-sm font-medium text-gray-900">Kaina: {{$kelione->kaina_suaug}}€</dt>
+                @else
+                    <dt class="text-sm font-medium text-gray-900">Kaina suaugusiems: {{$kelione->kaina_suaug}}€</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Kaina vaikams: {{$kelione->kaina_vaikam}}€</dd>
+                @endif
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-900">Išvyksta: {{$kelione->isvykimas}} iš {{$kelione->stotis}}, {{$kelione->pradzia_miestas}}</dt>
@@ -72,18 +80,16 @@
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <form method="GET" action="{{route('keliones.show',$kelione->id)}}">
                         @csrf
-                        <input type="submit" value = "Daugiau informacijos" class="border-2 p-0.5 rounded-lg cursor:auto">
+                        <input type="submit" value = "Daugiau informacijos" class="border-2 p-0.5 btn-info rounded-lg cursor:auto">
                     </form>
-                </div>
                 @if(Auth::check())
                 @if(Auth::user()->tipas > 2)
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <form method="GET" action="{{route('keliones.edit',$kelione->id)}}">>
+                    <form method="GET" action="{{route('keliones.edit',$kelione->id)}}">
                         @csrf
-                        <button type="submit">Redaguoti</button>
+                        <button class="border-2 p-0.5 btn-primary rounded-lg cursor:auto" type="submit">Redaguoti</button>
                     </form>
-                </div>
                 @endif
+            </div>
             @endif
                 </dl>
             </div>

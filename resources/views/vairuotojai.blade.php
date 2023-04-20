@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
+    <a class="btn-success rounded-lg p-0.5" href="{{route('vairuotregister.index')}}">Prideti</a>
     <div>
         @foreach($vairuotojai as $vairuotojas)
         <div class="overflow-hidden m-5 bg-white shadow sm:rounded-lg">

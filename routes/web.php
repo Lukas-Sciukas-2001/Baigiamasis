@@ -7,6 +7,8 @@ use App\Http\Controllers\transportas;
 use App\Http\Controllers\uzsakymai;
 use App\Http\Controllers\filtruotoskeliones;
 use App\Http\Controllers\vairuotkeliones;
+use App\Http\Controllers\VairuotRegister;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('stripe', [StripeController::class, 'stripe']);
+Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+
 Route::get('/', function () {
     if(Auth::check())
     {
@@ -32,6 +37,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/keliones', keliones::class);
+Route::resource('/vairuotregister', VairuotRegister::class);
 Route::resource('/vairuotojai', vairuotojai::class);
 Route::resource('/transportas', transportas::class);
 Route::resource('/uzsakymai', uzsakymai::class);

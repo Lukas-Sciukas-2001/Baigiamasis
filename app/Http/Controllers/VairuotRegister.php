@@ -1,36 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class RegisteredUserController extends Controller
-{
-    /**
-     * Display the registration view.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('auth.register');
-    }
+use Illuminate\Support\Facades\DB;
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
+class VairuotRegister extends Controller
+{
+    public function index()
+    {
+        if(Auth::check()){
+            if(Auth::user()->tipas > 2)
+            {
+                return view('vairuotregister'); 
+            }
+        }
+        return redirect()->route('keliones.index');
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -43,13 +38,11 @@ class RegisteredUserController extends Controller
             'pavarde' => $request->pavarde,
             'email' => $request->email,
             'telefonas' => $request->phone,
+            'tipas' => '2',
             'password' => Hash::make($request->password),
         ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('vairuotojai.index');
     }
+
+    //
 }

@@ -22,5 +22,6 @@ class vairuotojai extends Controller
         }
         return redirect()->route('keliones.index');
     }
+    
     //
 }

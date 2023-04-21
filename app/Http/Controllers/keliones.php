@@ -16,11 +16,12 @@ class keliones extends Controller
         
         $date = date('Y-m-d h:i:s', time());
         $keliones= DB::table('keliones')->where('visibility','=','matomas')->where('isvykimas','>',$date)->orderBy('isvykimas','asc')->paginate(5);
+        $vairuotojai=DB::table('users')->where('tipas','=','2')->get();
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
                 $nematomos = DB::table('keliones')->where('visibility','=','nematomas')->orderBy('isvykimas','asc')->get();
-                return view('kelione',compact('keliones','nematomos')); 
+                return view('kelione',compact('keliones','nematomos','vairuotojai')); 
             }
         }
         return view('kelione',compact('keliones')); 
@@ -42,7 +43,7 @@ class keliones extends Controller
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
-                $vairuotojai = DB::table('users')->where('tipas','=','2')->get();
+                $vairuotojai = DB::table('users')->where('tipas','=','2')->where('deleted_at',NULL)->get();
                 $kelione= DB::table('keliones')->where('id','=',$id)->first();
                 $transportas = DB::table('transportas')->get();
                 return view('kelioneedit',compact('kelione','vairuotojai','transportas'));
@@ -88,8 +89,9 @@ class keliones extends Controller
     public function show($id)
     {
         $kelione= DB::table('keliones')->where('keliones.id','=',$id)->join("transportas","transportas.id","=","keliones.transporto_id")->select("keliones.*","transportas.vietos")->first();
+        $vairuotojas=DB::table('users')->where('id','=',$kelione->vairuotojo_id)->first();
         $keleiviai = DB::table('uzsakymai')->where('keliones_id','=',$kelione->id)->get();
         $laisvos=$kelione->vietos-count($keleiviai);
-        return view('kelioneshow',compact('kelione','keleiviai','laisvos')); 
+        return view('kelioneshow',compact('kelione','keleiviai','laisvos','vairuotojas')); 
     }
 }

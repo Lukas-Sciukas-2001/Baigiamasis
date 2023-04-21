@@ -26,6 +26,28 @@ class VairuotRegister extends Controller
         }
         return redirect()->route('keliones.index');
     }
+    public function edit($id)
+    {
+        $vairuotojas = DB::table('users')->where('id','=',$id)->first();
+        return view('vairuotojas',compact('vairuotojas'));
+    }
+    public function update(Request $request, $id)
+    {
+        $update= DB::table('users')->where('id','=',$id)->update([
+            'name' => $request->name,
+            'pavarde' => $request->pavarde,
+            'email' => $request->email,
+            'telefonas' => $request->telefonas,
+        ]);
+        return redirect()->route('vairuotojai.index');
+    }
+    public function destroy($id)
+    {
+        $vairuotojas=User::where('id',$id)->firstOrFail();
+        $vairuotojas->delete();
+        return redirect()->route('vairuotojai.index');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

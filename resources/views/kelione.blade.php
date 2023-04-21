@@ -9,6 +9,14 @@
                         <div class="px-4 py-5 sm:px-6">
                             <h3 class="text-base font-semibold leading-6 text-gray-900">{{$nematomas->pavadinimas}}<br> {{$nematomas->visibility}}</h3>
                         </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            @foreach($vairuotojai as $vairuotojas)
+                                @if($vairuotojas->id == $nematomas->vairuotojo_id)
+                                    <dt class="text-sm font-medium text-gray-900">{{$vairuotojas->name}} {{$vairuotojas->pavarde}}</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$vairuotojas->telefonas}} {{$vairuotojas->email}}</dd>
+                                @endif
+                            @endforeach
+                        </div>
                         <div class="border-t border-gray-200">
                             <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -88,13 +96,22 @@
                         @csrf
                         <button class="border-2 p-0.5 btn-primary rounded-lg cursor:auto" type="submit">Redaguoti</button>
                     </form>
+                    </div>
+                 @foreach($vairuotojai as $vairuotojas)
+                             @if($vairuotojas->id == $kelione->vairuotojo_id)
+                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-sm font-medium text-gray-900">{{$vairuotojas->name}} {{$vairuotojas->pavarde}}</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$vairuotojas->telefonas}} {{$vairuotojas->email}}</dd>
+                                </div>
+                            @endif
+                        @endforeach
                 @endif
-            </div>
             @endif
                 </dl>
+                
             </div>
         </div>
         @endforeach
+        {{ $keliones->links()}}
     </div>
-    {{ $keliones->links()}}
 </x-app-layout>

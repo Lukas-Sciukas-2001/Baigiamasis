@@ -17,11 +17,19 @@ class vairuotkeliones extends Controller
         if(Auth::check()){
             if(Auth::user()->tipas == 2)
             {
-                $keliones = DB::table('keliones')->where('vairuotojo_id','=',Auth::user()->id)->join('transportas','transportas.id','=','transporto_id')->orderBy('isvykimas','asc')->get();
+                $date = date('Y-m-d h:i:s', time());
+                $keliones = DB::table('keliones')->where('isvykimas','>',$date)->where('vairuotojo_id','=',Auth::user()->id)->join('transportas','transportas.id','=','transporto_id')->orderBy('isvykimas','asc')->get();
                 return view('priskirtos',compact('keliones')); 
             }
         }
         return redirect()->route('keliones.index');
+    }
+    public function show($id)
+    {
+        $kelione= DB::table('keliones')->where('keliones.id','=',$id)->join("transportas","transportas.id","=","keliones.transporto_id")->select("keliones.*","transportas.vietos")->first();
+        $keleiviai = DB::table('uzsakymai')->where('keliones_id','=',$kelione->id)->get();
+        $laisvos=$kelione->vietos-count($keleiviai);
+        return view('vairuotkelioneshow',compact('kelione','keleiviai','laisvos')); 
     }
     //
 }

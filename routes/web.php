@@ -9,6 +9,7 @@ use App\Http\Controllers\filtruotoskeliones;
 use App\Http\Controllers\vairuotkeliones;
 use App\Http\Controllers\VairuotRegister;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\ivykKelionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::get('/', function () {
     return redirect()->route('keliones.index');
 });
 
+Route::resource('/ivykkelione',ivykKelionController::class);
 Route::resource('/keliones', keliones::class);
 Route::resource('/vairuotregister', VairuotRegister::class);
 Route::resource('/vairuotojai', vairuotojai::class);

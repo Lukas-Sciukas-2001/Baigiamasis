@@ -16,7 +16,7 @@ class vairuotojai extends Controller
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
-                $vairuotojai= DB::table('users')->where('tipas','=','2')->get();
+                $vairuotojai= DB::table('users')->where('tipas','=','2')->where('deleted_at',NULL)->get();
                 return view('vairuotojai',compact('vairuotojai')); 
             }
         }

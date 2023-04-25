@@ -21,32 +21,93 @@ class StripeController extends Controller
         $kelione = DB::table('keliones')->where('id','=',$id)->first();
         return view('stripe',compact('kelione'));
     }
+
    
     /**
      * success response method.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function stripePost(Request $request)
     {
+        $kelione = $kelione = DB::table('keliones')->where('id','=',$request->keliones_id)->first();
+        $suma = $request->suauge*$kelione->kaina_suaug+$request->vaikai*$kelione->kaina_vaikam;
+        $mokantysis = $request->vardas[0]." ".$request->pavarde[0];
         if($request->uzmokest_tipas == "Internetu")
         {
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $charge = Stripe\Charge::create ([
-                    "amount" => $request->kaina*100,
+                    "amount" => $suma*100,
                     "currency" => "eur",
                     "source" => $request->stripeToken,
                     "description" => "Testing integration"
             ]);
             if($charge->status == 'succeeded'){
             Session::flash('success', 'Payment successful!');
-            uzsakym::create($request->all());
+            for($x = 0; $x < $request->suauge; $x++)
+                {
+                    $asmuo=[
+                        'user_id' => $request->user_id,
+                        'keliones_id' => $request->keliones_id,
+                        'patvirt_busena' => 'Patvirtinta',
+                        'vardas' => $request->vardas[$x],
+                        'pavarde' => $request->pavarde[$x],
+                        'uzmokest_tipas' => $request->uzmokest_tipas,
+                        'kaina' => $kelione->kaina_suaug,
+                        'mokantysis' => $mokantysis
+                    ];
+                    uzsakym::create($asmuo);
+                }
+            for($x = $request->suauge; $x < $request->suauge+$request->vaikai; $x++)
+                {
+                    $asmuo=[
+                        'user_id' => $request->user_id,
+                        'keliones_id' => $request->keliones_id,
+                        'patvirt_busena' => 'Patvirtinta',
+                        'vardas' => $request->vardas[$x],
+                        'pavarde' => $request->pavarde[$x],
+                        'uzmokest_tipas' => $request->uzmokest_tipas,
+                        'kaina' => $kelione->kaina_vaikam,
+                        'mokantysis' => $mokantysis
+                    ];
+                    uzsakym::create($asmuo);
+                }
             }
         }
         else
         {
+
             Session::flash('success', 'Payment successful!');
-            uzsakym::create($request->all());
+            for($x = 0; $x < $request->suauge; $x++)
+                {
+                    $asmuo=[
+                        'user_id' => $request->user_id,
+                        'keliones_id' => $request->keliones_id,
+                        'patvirt_busena' => 'Patvirtinta',
+                        'vardas' => $request->vardas[$x],
+                        'pavarde' => $request->pavarde[$x],
+                        'uzmokest_tipas' => $request->uzmokest_tipas,
+                        'kaina' => $kelione->kaina_suaug,
+                        'mokantysis' => $mokantysis
+                    ];
+                    uzsakym::create($asmuo);
+                }
+
+            for($x = $request->suauge; $x < $request->suauge+$request->vaikai; $x++)
+                {
+                    $asmuo=[
+                        'user_id' => $request->user_id,
+                        'keliones_id' => $request->keliones_id,
+                        'patvirt_busena' => 'Patvirtinta',
+                        'vardas' => $request->vardas[$x],
+                        'pavarde' => $request->pavarde[$x],
+                        'uzmokest_tipas' => $request->uzmokest_tipas,
+                        'kaina' => $kelione->kaina_vaikam,
+                        'mokantysis' => $mokantysis
+                    ];
+                    uzsakym::create($asmuo);
+                }
         }
         return redirect()->route('keliones.show',$request->keliones_id);
     }

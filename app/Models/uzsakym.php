@@ -16,6 +16,7 @@ class uzsakym extends Model
         'pavarde',
         'uzmokest_tipas',
         'kaina',
+        'mokantysis',
     ];
     use HasFactory;
 }

@@ -15,16 +15,31 @@ class keliones extends Controller
     {
         
         $date = date('Y-m-d h:i:s', time());
-        $keliones= DB::table('keliones')->where('visibility','=','matomas')->where('isvykimas','>',$date)->orderBy('isvykimas','asc')->paginate(5);
+        $keliones= DB::table('keliones')->where('visibility','=','matomas')->where('isvykimas','>',$date)->join("transportas","transportas.id","=","keliones.transporto_id")->select("keliones.*","transportas.vietos")->orderBy('isvykimas','asc')->paginate(5);
+        $uzsakymai = DB::table('uzsakymai')->get();
+        $x = 0;
+        $vietos = [];
+        foreach($keliones as $kelione)
+        {
+            $uzimtos = 0;
+            foreach($uzsakymai as $uzsakymas)
+            {
+                if($uzsakymas->keliones_id == $kelione->id)
+                {
+                    $uzimtos++;
+                }
+            }
+            $vietos[$kelione->id]=$kelione->vietos-$uzimtos;
+        }
         $vairuotojai=DB::table('users')->where('tipas','=','2')->get();
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
                 $nematomos = DB::table('keliones')->where('visibility','=','nematomas')->orderBy('isvykimas','asc')->get();
-                return view('kelione',compact('keliones','nematomos','vairuotojai')); 
+                return view('kelione',compact('keliones','nematomos','vairuotojai','vietos')); 
             }
         }
-        return view('kelione',compact('keliones')); 
+        return view('kelione',compact('keliones','vietos')); 
     }
     public function create()
     {

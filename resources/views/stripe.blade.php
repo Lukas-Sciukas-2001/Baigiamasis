@@ -55,18 +55,7 @@ width: 61%;
                 @if(Auth::check())
                     <input type="hidden" value="{{ Auth::user()->id}}" id='user_id' name='user_id'>
                 @endif
-                    <input type="hidden" value="patvirtinta" id='patvirt_busena' name='patvirt_busena'>
-
-                <!-- vardas -->
-                <div class="mt-4">
-                        <x-input-label for="vardas" :value="__('Keleivio vardas')" />
-                        <x-text-input id="vardas" class="block mt-1 w-full" type="text" name="vardas" :value="old('vardas')" required />
-                    </div>
-                    <!-- pavarde -->
-                    <div class="mt-4">
-                        <x-input-label for="pavarde" :value="__('Keleivio pavarde')" />
-                        <x-text-input id="pavarde" class="block mt-1 w-full" type="text" name="pavarde" :value="old('pavarde')" required />
-                    </div>
+                    <input type="hidden" value="patvirtinta" id='patvirt_busena' name='patvirt_busena'>           
                     <!-- uzmokest tipas -->
                     <div class="mt-4">
                         Užmokėščio tipas
@@ -76,13 +65,16 @@ width: 61%;
                         </select>
                     </div>
                     <!-- kaina -->
+                    <input type="hidden" id="kainasuaug" value="{{$kelione->kaina_suaug}}">
+                    <input type="hidden" id="kainavaikam" value="{{$kelione->kaina_vaikam}}">
                     <div class="mt-4">
-                        Keleivio amžius
-                        <select id='kaina' name="kaina" class='kaina'>
-                                <option value = '15'>Suaugės</option>
-                                <option value = '10'>Vaikas</option>
-                        </select>
+                        Keleiviu kiekis<br>
+                        Suauge
+                        <input id='num-inputs1' value='1' name='suauge' step='1' min='1' max='5' default='1' type='number'></input>
+                        Vaikai
+                        <input id='num-inputs2' value='0' name='vaikai' step='1' min='0' max='5' default='0' type='number'></input>
                     </div>
+                    <div id="keleiviai"></div>
                     <div id = "pay">
                 <div class='form-row row'>
                     <div class='col-xs-12 form-group required'>
@@ -130,8 +122,89 @@ width: 61%;
     </body>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
+                const keleiviai = document.getElementById("keleiviai");
                 const select = document.querySelector('#uzmokest_tipas');
                 const submitButton = document.querySelector('#submit-button');
+                const suauge = document.getElementById("suaug");
+                const vaikai = document.getElementById("vaikai");
+                const kainaSuauge = document.getElementById("kainasuaug");
+                const kainaVaikai = document.getElementById("kainavaikam");
+
+                //testing
+                const numInputsInput1 = document.getElementById("num-inputs1");
+                const numInputsInput2 = document.getElementById("num-inputs2");
+                const inputsContainer = document.getElementById("keleiviai");
+
+                function generateInputs() {
+                    const numInputs1 = parseInt(numInputsInput1.value);
+                    const numInputs2 = parseInt(numInputsInput2.value);
+
+                    const suagkain = kainaSuauge.value;
+                    const vaikkain = kainaVaikai.value;
+                    
+                    const suma = numInputs1*suagkain+numInputs2*vaikkain;
+                    submitButton.textContent= 'Moketi: '+suma+"€";
+
+                    // Clear previous inputs
+                    inputsContainer.innerHTML = "";
+
+                    // Create new inputs
+                    const separator = document.createElement("p");
+                    separator.textContent = "Suauge";
+                    inputsContainer.appendChild(separator);
+                    for (let i = 0; i < numInputs1; i++) {
+
+                        const labelvard = document.createElement("label");
+                        labelvard.for = `vardas[]`;
+                        labelvard.textContent = `Vardas`;
+                        inputsContainer.appendChild(labelvard);
+                        const input1 = document.createElement("input");
+                        input1.type = "text";
+                        input1.name = "vardas[]";
+                        inputsContainer.appendChild(input1);
+
+                        const labelpavard = document.createElement("label");
+                        labelpavard.for = `pavarde[]`;
+                        labelpavard.textContent = `Pavarde`;
+                        inputsContainer.appendChild(labelpavard);
+                        const input2 = document.createElement("input");
+                        input2.type = "text";
+                        input2.name = "pavarde[]";
+                        inputsContainer.appendChild(input2);
+                        
+                    }
+                    const separator2 = document.createElement("p");
+                    separator2.textContent = "Vaikai";
+                    inputsContainer.appendChild(separator2);
+                    
+                    for (let i = 0; i < numInputs2; i++) {
+
+                        const labelvard = document.createElement("label");
+                        labelvard.for = `vardas[]`;
+                        labelvard.textContent = `Vardas`;
+                        inputsContainer.appendChild(labelvard);
+                        const input1 = document.createElement("input");
+                        input1.type = "text";
+                        input1.name = "vardas[]";
+                        inputsContainer.appendChild(input1);
+
+                        const labelpavard = document.createElement("label");
+                        labelpavard.for = `pavarde[]`;
+                        labelpavard.textContent = `Pavarde`;
+                        inputsContainer.appendChild(labelpavard);
+                        const input2 = document.createElement("input");
+                        input2.type = "text";
+                        input2.name = "pavarde[]";
+                        inputsContainer.appendChild(input2);
+                        
+                    }
+                }
+
+                numInputsInput1.addEventListener("input", generateInputs);
+                numInputsInput2.addEventListener("input", generateInputs);
+                // Call generateInputs initially to create the initial set of inputs
+                generateInputs();
+
                 const pay = document.querySelector('#pay')
                 select.addEventListener('change', () => {
                     if(select.value === "Vietoj"){

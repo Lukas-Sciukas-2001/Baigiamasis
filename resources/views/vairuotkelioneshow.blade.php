@@ -22,7 +22,13 @@
             </div>
         </div>
     </div>
+    <table class='table'>
+        <tr>
+        <td>Vardas</td>  <td>Pavrdė</td> <td>Umzokeščio tipas</td> <td>kaina</td><th> Mokantysis asmuo</th>
+        </tr>
     @foreach($keleiviai as $keleivis)
-        {{$keleivis->vardas}} - {{$keleivis->pavarde}} - {{$keleivis->uzmokest_tipas}} - {{$keleivis->kaina}}€<br>
+        <tr>
+        <td>{{$keleivis->vardas}}</td>  <td>{{$keleivis->pavarde}}</td> <td>{{$keleivis->uzmokest_tipas}}</td> <td>{{$keleivis->kaina}}</td><td> {{$keleivis->mokantysis}}</td>
+        </tr>
     @endforeach
 </x-app-layout>

@@ -81,14 +81,18 @@
             </div>
         </div>
     </div>
-    <table class='table'>
-        <tr>
-        <td>Vardas</td>  <td>Pavrdė</td> <td>Umzokeščio tipas</td> <td>Sumoketa kaina</td><th> Mokantysis asmuo</th>
-        </tr>
-    @foreach($keleiviai as $keleivis)
-        <tr>
-        <td>{{$keleivis->vardas}}</td>  <td>{{$keleivis->pavarde}}</td> <td>{{$keleivis->uzmokest_tipas}}</td> <td>{{$keleivis->kaina}}</td><td> {{$keleivis->mokantysis}}</td>
-        </tr>
-    @endforeach
-    </table>
+    @if(Auth::check())
+        @if(Auth::user()->tipas >2)   
+            <table class='table'>
+                <tr>
+                <td>Vardas</td>  <td>Pavrdė</td> <td>Umzokeščio tipas</td> <td>Sumoketa kaina</td><th> Mokantysis asmuo</th>
+                </tr>
+            @foreach($keleiviai as $keleivis)
+                <tr>
+                <td>{{$keleivis->vardas}}</td>  <td>{{$keleivis->pavarde}}</td> <td>{{$keleivis->uzmokest_tipas}}</td> <td>{{$keleivis->kaina}}</td><td> {{$keleivis->mokantysis}}</td>
+                </tr>
+            @endforeach
+            </table>
+        @endif
+    @endif
 </x-app-layout>

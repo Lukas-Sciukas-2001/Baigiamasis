@@ -33,11 +33,13 @@ class VairuotRegister extends Controller
     }
     public function update(Request $request, $id)
     {
+        $date = date('Y-m-d h:i:s', time());
         $update= DB::table('users')->where('id','=',$id)->update([
             'name' => $request->name,
             'pavarde' => $request->pavarde,
             'email' => $request->email,
             'telefonas' => $request->telefonas,
+            'updated_at' => $date
         ]);
         return redirect()->route('vairuotojai.index');
     }

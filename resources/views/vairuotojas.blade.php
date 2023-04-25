@@ -30,11 +30,6 @@
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-900"><input class='btn-success rounded-lg p-0.5' type='submit' value="Išsaugoti"></dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                        <form action="{{ route('vairuotregister.destroy',$vairuotojas->id)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="Panaikinti" class="border-2 bg-red-600 p-2 m-2 rounded-lg">
-                        </form>
                         </dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -42,6 +37,11 @@
                     </dl>
                 </div>
             </form>
+            <form action="{{ route('vairuotregister.destroy',$vairuotojas->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="Panaikinti" class="border-2 bg-red-600 p-2 m-2 rounded-lg">
+                        </form>
         </div>
     </div>
 </x-app-layout>

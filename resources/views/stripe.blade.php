@@ -30,8 +30,7 @@ width: 61%;
                     <div class="panel-heading display-table" >
                         <div class="row display-tr" >
                         <h3 class="panel-title display-td" >Payment Details</h3>
-                        <div class="display-td" >                            
-                        <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                        <div class="display-td" >                           
                         </div>
                     </div>                    
                 </div>
@@ -146,9 +145,11 @@ width: 61%;
                     submitButton.textContent= 'Moketi: '+suma+"€";
 
                     inputsContainer.innerHTML = "";
+                    if(numInputs2 > 0){
                     const separator = document.createElement("p");
                     separator.textContent = "Suauge";
                     inputsContainer.appendChild(separator);
+                    }
                     for (let i = 0; i < numInputs1; i++) {
 
                         const labelvard = document.createElement("label");
@@ -170,9 +171,11 @@ width: 61%;
                         inputsContainer.appendChild(input2);
                         
                     }
+                    if(numInputs2 > 0){
                     const separator2 = document.createElement("p");
                     separator2.textContent = "Vaikai";
                     inputsContainer.appendChild(separator2);
+                    }
                     
                     for (let i = 0; i < numInputs2; i++) {
 

@@ -99,6 +99,11 @@
                         @csrf
                         <button class="border-2 p-0.5 btn-primary rounded-lg cursor:auto" type="submit">Redaguoti</button>
                     </form>
+                    <form method="GET" action="{{route('PDF.index')}}"> 
+                    @csrf
+                    <input type="hidden" name="keliones_id" value="{{$kelione->id}}">
+                    <input class="btn btn-success" type="submit" value="PDF">
+                    </form>
                     </div>
                  @foreach($vairuotojai as $vairuotojas)
                              @if($vairuotojas->id == $kelione->vairuotojo_id)

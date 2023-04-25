@@ -18,13 +18,20 @@
                 </div>
                 </dl>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <form method="GET" action="{{route('vairuotkeliones.show',$kelione->id)}}">>
+                    <form method="GET" action="{{route('vairuotkeliones.show',$kelione->id)}}">
                          @csrf
-                        <button type="submit">Keleiviai</button>
+                        <button class="btn btn-info" type="submit">Keleiviai</button>
+                    </form>
+                    <form method="GET" action="{{route('PDF.index')}}"> 
+                    @csrf
+                    <input type="hidden" name="keliones_id" value="{{$kelione->id}}">
+                    <input class="btn btn-success" type="submit" value="PDF">
                     </form>
                 </div>
             </div>
+            
         </div>
+        
         @endforeach
     </div>
 </x-app-layout>

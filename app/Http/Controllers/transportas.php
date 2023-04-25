@@ -78,13 +78,11 @@ class transportas extends Controller
                     'modelis' => 'required',
                     'identif' => 'required',
                     'vietos' => 'required',
-                    'technikinis' => 'required'
                 ]);
                 $transportas = transport::find($id);
                 $transportas->modelis=$request->modelis;
                 $transportas->identif=$request->identif;
                 $transportas->vietos=$request->vietos;
-                $transportas->technikinis=$request->technikinis;
                 $transportas->save();
                 return redirect()->route('transportas.index');
             }
@@ -100,13 +98,11 @@ class transportas extends Controller
                     'modelis' => 'required',
                     'identif' => 'required',
                     'vietos' => 'required',
-                    'technikinis' => 'required'
                 ]);
                 $transportas = transport::find($id);
                 $transportas->modelis=$request->modelis;
                 $transportas->identif=$request->identif;
                 $transportas->vietos=$request->vietos;
-                $transportas->technikinis=$request->technikinis;
                 $transportas->save();
                 return redirect()->route('transportas.index');
             }

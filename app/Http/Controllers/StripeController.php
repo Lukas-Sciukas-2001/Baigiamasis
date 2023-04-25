@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Session;
 use Stripe;
 use App\Models\uzsakym;
+use App\Models\charges;
 use Auth;
 use Illuminate\Support\Facades\DB;
     
@@ -44,7 +45,14 @@ class StripeController extends Controller
                     "description" => "Testing integration"
             ]);
             if($charge->status == 'succeeded'){
-            Session::flash('success', 'Payment successful!');
+            $chargedb=[
+                'tipas' => 'Mokejimas',
+                'charge_id' => $charge->id,
+                'uzsakymo_id' => $request->keliones_id,
+                'suma' => $suma,
+            ];
+            charges::create($chargedb);
+            Session::flash('success', 'Mokėjimas sekmingas!');
             for($x = 0; $x < $request->suauge; $x++)
                 {
                     $asmuo=[
@@ -78,7 +86,7 @@ class StripeController extends Controller
         else
         {
 
-            Session::flash('success', 'Payment successful!');
+            Session::flash('success', 'Kelionė užsakyta');
             for($x = 0; $x < $request->suauge; $x++)
                 {
                     $asmuo=[

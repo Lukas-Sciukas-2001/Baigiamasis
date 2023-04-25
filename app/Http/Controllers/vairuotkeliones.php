@@ -18,7 +18,7 @@ class vairuotkeliones extends Controller
             if(Auth::user()->tipas == 2)
             {
                 $date = date('Y-m-d h:i:s', time());
-                $keliones = DB::table('keliones')->where('isvykimas','>',$date)->where('vairuotojo_id','=',Auth::user()->id)->join('transportas','transportas.id','=','transporto_id')->orderBy('isvykimas','asc')->get();
+                $keliones = DB::table('keliones')->where('isvykimas','>',$date)->where('vairuotojo_id','=',Auth::user()->id)->join('transportas','transportas.id','=','transporto_id')->select("keliones.*","transportas.vietos","transportas.identif","transportas.modelis")->orderBy('isvykimas','asc')->get();
                 return view('priskirtos',compact('keliones')); 
             }
         }

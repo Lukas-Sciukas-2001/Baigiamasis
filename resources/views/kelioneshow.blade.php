@@ -89,7 +89,12 @@
                 </tr>
             @foreach($keleiviai as $keleivis)
                 <tr>
-                <td>{{$keleivis->vardas}}</td>  <td>{{$keleivis->pavarde}}</td> <td>{{$keleivis->uzmokest_tipas}}</td> <td>{{$keleivis->kaina}}</td><td> {{$keleivis->mokantysis}}</td>
+                <td>{{$keleivis->vardas}}</td>  <td>{{$keleivis->pavarde}}</td> <td>{{$keleivis->uzmokest_tipas}}</td> <td>{{$keleivis->kaina}}</td>
+                @if($keleivis->vardas." ".$keleivis->pavarde != $keleivis->mokantysis)
+                <td> {{$keleivis->mokantysis}}</td>
+                @else
+                <td></td>
+                @endif
                 </tr>
             @endforeach
             </table>

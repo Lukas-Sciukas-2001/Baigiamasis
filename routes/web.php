@@ -11,6 +11,7 @@ use App\Http\Controllers\VairuotRegister;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ivykKelionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::get('/', function () {
     return redirect()->route('keliones.index');
 });
 
+Route::resource('/PDF', PDFController::class);
 Route::resource('/ivykkelione',ivykKelionController::class);
 Route::resource('/keliones', keliones::class);
 Route::resource('/vairuotregister', VairuotRegister::class);

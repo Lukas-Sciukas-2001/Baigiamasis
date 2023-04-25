@@ -15,7 +15,9 @@ class ivykKelionController extends Controller
     {
         $date = date('Y-m-d h:i:s', time());
         $buskeliones= DB::table('uzsakymai')->join("keliones","keliones.id","=","uzsakymai.keliones_id")->where('isvykimas','>',$date)->where('user_id',Auth::user()->id)->get();
+        
         $jaukeliones= DB::table('uzsakymai')->join("keliones","keliones.id","=","uzsakymai.keliones_id")->where('isvykimas','<=',$date)->where('user_id',Auth::user()->id)->get();
+
         return view('ivykkelione',compact('buskeliones','jaukeliones'));
     }
     //

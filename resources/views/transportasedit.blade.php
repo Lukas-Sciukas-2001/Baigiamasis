@@ -17,10 +17,6 @@
                 <x-text-input id="identif" class="block mt-1 w-full" type="text" name="identif" value="{{$transportas->identif}}" required />
             </div>
             <div class="mt-4">
-                <x-input-label for="technikinis" :value="__('Technikinis')" />
-                <input id="technikinis" class="block mt-1 w-full" type="date" name="technikinis" value="{{$transportas->technikinis}}" required>
-            </div>
-            <div class="mt-4">
                 <x-input-label for="vietos" :value="__('Max vietos')" />
                 <input id="vietos" class="block mt-1 w-full" type="number" name="vietos" value="{{$transportas->vietos}}" required />
             </div>

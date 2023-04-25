@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('transportas', function (Blueprint $table) {
-            $table->date('technikinis')->nullable();
+        Schema::create('charges', function (Blueprint $table) {
+            $table->id();
+            $table->string('tipas');
+            $table->string('charge_id');
+            $table->integer('uzsakymo_id');
+            $table->integer('suma');
+            $table->timestamps();
         });
     }
 
@@ -25,9 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transportas', function (Blueprint $table) {
-            $table->dropColumn('technikinis');
-        });
-        //
+        Schema::dropIfExists('charges');
     }
 };

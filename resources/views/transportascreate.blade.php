@@ -20,11 +20,6 @@
                 <x-input-label for="vietos" :value="__('Max vietos')" />
                 <input id="vietos" class="block mt-1 w-full" type="number" name="vietos" :value="old('vietos')" required />
             </div>
-            <!-- Technikinis -->
-            <div class="mt-4">
-                <x-input-label for="technikinis" :value="__('Technikinis')" />
-                <input id="technikinis" class="block mt-1 w-full" type="date" name="technikinis" value="old('technikinis')" required>
-            </div>
             <div>
                 <input type="submit" value="Išsaugoti" class="border-2 p-0.5 rounded-lg cursor:auto">
             </div>

@@ -145,10 +145,7 @@ width: 61%;
                     const suma = numInputs1*suagkain+numInputs2*vaikkain;
                     submitButton.textContent= 'Moketi: '+suma+"€";
 
-                    // Clear previous inputs
                     inputsContainer.innerHTML = "";
-
-                    // Create new inputs
                     const separator = document.createElement("p");
                     separator.textContent = "Suauge";
                     inputsContainer.appendChild(separator);
@@ -202,7 +199,6 @@ width: 61%;
 
                 numInputsInput1.addEventListener("input", generateInputs);
                 numInputsInput2.addEventListener("input", generateInputs);
-                // Call generateInputs initially to create the initial set of inputs
                 generateInputs();
 
                 const pay = document.querySelector('#pay')

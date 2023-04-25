@@ -13,7 +13,6 @@ class transport extends Model
         'modelis',
         'identif',
         'vietos',
-        'technikinis',
     ];
     use HasFactory;
     use SoftDeletes;

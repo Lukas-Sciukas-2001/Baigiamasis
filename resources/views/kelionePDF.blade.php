@@ -12,11 +12,11 @@
             <div style="font-family: Arial" class="border-t border-gray-200">
 
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-900">Išvyksti: {{$kelione->isvykimas}}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Grįžti: {{$kelione->gryzimas}}</dd>
+                    <dt class="text-sm font-medium text-gray-900">Isvyksti: {{$kelione->isvykimas}}</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Grizti: {{$kelione->gryzimas}}</dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-900">Išvykti iš </dt>
+                    <dt class="text-sm font-medium text-gray-900">Isvykti is </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$kelione->pradzia_miestas}}, {{$kelione->stotis}}</dd>
                 </div>
                 </dl>
@@ -25,7 +25,7 @@
     </div>
     <table class='table'>
         <tr>
-        <th>Vieta</th><th>Vardas</th>  <th>Pavrdė</th> <th>Umzokeščio tipas</th> <th>kaina</th><th> Mokantysis asmuo</th>
+        <th>Vieta</th><th>Vardas</th>  <th>Pavrde</th> <th>Umzokescio tipas</th> <th>kaina</th><th> Mokantysis asmuo</th>
         </tr>
         @php
          $x=1;

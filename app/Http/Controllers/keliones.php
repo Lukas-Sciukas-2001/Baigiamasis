@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\kelione;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Mail\vairuotPranesimas;
+use Illuminate\Support\Facades\Mail;
 
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +51,7 @@ class keliones extends Controller
                 $vairuotojai = DB::table('users')->where('tipas','=','2')->where('deleted_at',NULL)->get();
                 $transportas = DB::table('transportas')->where('deleted_at',NULL)->get();
                 return view('kelionecreate',compact('vairuotojai','transportas'));
+                
             }
         }
         return redirect()->route('keliones.index'); 
@@ -96,7 +99,21 @@ class keliones extends Controller
         if(Auth::check()){
             if(Auth::user()->tipas > 2)
             {
+                $vairuotojas= DB::table('users')->where('id',$request->vairuotojo_id)->first();
+                $transportas=DB::table('transportas')->where('id',$request->transporto_id)->first();
                 kelione::create($request->all());
+                $data=[
+                    'isvyk_miest' => $request->pradzia_miestas,
+                    'isvyk_stotis' => $request->stotis,
+                    'tikslas_salis' => $request->tikslas_salis,
+                    'tikslas_miestas' => $request->tikslas_miestas,
+                    'isvykimas' => $request->isvykimas,
+                    'gryzimas' => $request->gryzimas,
+                    'vairuotojas' => $vairuotojas->name,
+                    'numeriai' => $transportas->identif,
+                    'modelis' => $transportas->modelis
+                ];
+                Mail::to($vairuotojas->email)->send(new vairuotPranesimas($data));
             }
         }
         return redirect()->route('keliones.index');

@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderShipped extends Mailable
+class vairuotPranesimas extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,13 +32,13 @@ class OrderShipped extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Kelionė užsakyta',
+            subject: 'Pranešimas vairuotojui',
         );
     }
 
     public function build()
     {
-        return $this->subject('Kelionė sekmingia užsakyta')->view('emails.shipped')->with(['data' => $this->data]);
+        return $this->subject('Pranešimas vairuotojui')->view('emails.priskirta')->with(['data' => $this->data]);
     }
 
     /**
@@ -48,8 +48,9 @@ class OrderShipped extends Mailable
      */
     public function content()
     {
+        
         return new Content(
-            markdown: 'emails.orders.shipped',
+            markdown: 'emails.priskirta',
         );
     }
 

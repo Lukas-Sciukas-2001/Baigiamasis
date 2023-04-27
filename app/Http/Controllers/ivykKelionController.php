@@ -16,6 +16,8 @@ class ivykKelionController extends Controller
         $date = date('Y-m-d h:i:s', time());
         $buskeliones= DB::table('uzsakymai')->join("keliones","keliones.id","=","uzsakymai.keliones_id")->where('isvykimas','>',$date)->where('user_id',Auth::user()->id)->orderBy('isvykimas','asc')->get();
         $kelione=[];
+        if(count($buskeliones) != 0)
+        {
         $kelione[0]=[
 
             'id'=>$buskeliones[0]->keliones_id,
@@ -71,9 +73,12 @@ class ivykKelionController extends Controller
             }
 
         }
+    }
+    $kelionebuv=[];
+    $jaukeliones= DB::table('uzsakymai')->join("keliones","keliones.id","=","uzsakymai.keliones_id")->where('isvykimas','<=',$date)->where('user_id',Auth::user()->id)->orderBy('isvykimas','asc')->get();
+    if(count($jaukeliones) != 0)
+    {
 
-        $jaukeliones= DB::table('uzsakymai')->join("keliones","keliones.id","=","uzsakymai.keliones_id")->where('isvykimas','<=',$date)->where('user_id',Auth::user()->id)->orderBy('isvykimas','asc')->get();
-        $kelionebuv=[];
         $kelionebuv[0]=[
 
             'id'=>$jaukeliones[0]->keliones_id,
@@ -129,6 +134,7 @@ class ivykKelionController extends Controller
             }
 
         }
+    }
         return view('ivykkelione',compact('buskeliones','jaukeliones','kelione','kelionebuv'));
     }
     //

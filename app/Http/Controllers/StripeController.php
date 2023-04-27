@@ -119,7 +119,17 @@ class StripeController extends Controller
                     uzsakym::create($asmuo);
                 }
         }
-        Mail::to('zmogus@localhost')->send(new OrderShipped());
+        $data=[
+            'suma' => $suma,
+            'isvyk_miest' => $kelione->pradzia_miestas,
+            'isvyk_stotis' => $kelione->stotis,
+            'tikslas_salis' => $kelione->tikslas_salis,
+            'tikslas_miestas' => $kelione->tikslas_miestas,
+            'isvykimas' => $kelione->isvykimas,
+            'gryzimas' => $kelione->gryzimas,
+            'mokejimas' => $request->uzmokest_tipas
+        ];
+        Mail::to($request->email)->send(new OrderShipped($data));
         return redirect()->route('keliones.show',$request->keliones_id);
     }
 }

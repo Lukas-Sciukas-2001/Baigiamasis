@@ -54,7 +54,13 @@ width: 61%;
                 @if(Auth::check())
                     <input type="hidden" value="{{ Auth::user()->id}}" id='user_id' name='user_id'>
                 @endif
-                    <input type="hidden" value="patvirtinta" id='patvirt_busena' name='patvirt_busena'>           
+                    <input type="hidden" value="patvirtinta" id='patvirt_busena' name='patvirt_busena'>    
+                    <label> El. paštas</label>
+                    @if(Auth::check())
+                        <input type="email" id="email" name='email' value="{{Auth::user()->email}}">
+                    @else
+                    <input type="email" id="email" name='email' value="El. paštas">
+                    @endif
                     <!-- uzmokest tipas -->
                     <div class="mt-4">
                         Užmokėščio tipas

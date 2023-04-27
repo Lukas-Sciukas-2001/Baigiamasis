@@ -2,7 +2,6 @@
     <x-slot name="header">
     </x-slot>
     <div>
-        <a class="btn-secondary p-0.5" href="{{url()->previous()}}">Atgal</a>
         @if (Session::has('success'))
                     <div class="alert alert-success text-center">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>

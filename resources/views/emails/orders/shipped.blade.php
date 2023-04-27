@@ -1,12 +1,14 @@
 <x-mail::message>
-# Introduction
+Dekojame kad užsisakėte kelionę naudojantis mūsų paslaugomis!
 
-The body of your message.
+Jusų kelionė į {{$data['tikslas_miestas']}}, {{$data['tikslas_salis']}}
+išvyksta {{$data['isvykimas']}} iš {{$data['isvyk_stotis']}}, {{$data['isvyk_miest']}} ir gryžta {{$data['gryzimas']}}
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+@if($data['mokejimas'] == 'Vietoj')
+    Neužmirškite atsinešti {{$data['suma']}}€ kuriuos turite sumokėti už kelionę
+@else
+    Už kelionę jūs sumokėjote {{$data['suma']}}€
+@endif
+Tikimės kad kelionė bus linksma ir maloni!
 
-Thanks,<br>
-{{ config('app.name') }}
 </x-mail::message>

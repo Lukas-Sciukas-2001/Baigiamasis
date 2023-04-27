@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
     
 use Illuminate\Http\Request;
 use Session;
+use App\Mail\OrderShipped;
 use Stripe;
 use App\Models\uzsakym;
 use App\Models\charges;
+use Illuminate\Support\Facades\Mail;
 use Auth;
 use Illuminate\Support\Facades\DB;
     
@@ -117,6 +119,7 @@ class StripeController extends Controller
                     uzsakym::create($asmuo);
                 }
         }
+        Mail::to('zmogus@localhost')->send(new OrderShipped());
         return redirect()->route('keliones.show',$request->keliones_id);
     }
 }

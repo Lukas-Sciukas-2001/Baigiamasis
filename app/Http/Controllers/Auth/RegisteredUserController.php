@@ -7,7 +7,10 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controller\Auth\EmailVerificationNotificationController;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -48,8 +51,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        $user->sendEmailVerificationNotification();
 
-        return redirect(RouteServiceProvider::HOME);
+
+        return redirect()->route('login')
+        ->with('success','Please check your email and verify your account.');
     }
 }
